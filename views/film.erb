@@ -1,5 +1,5 @@
 <h1>Film Times:</h1>
 
 <%for film in @film%>
-  <li><h1><%= film.title %></h1></li>
+  <li><a href="/films/<%=film.id%>"><%= film.title %></a></li>
     <%end%>

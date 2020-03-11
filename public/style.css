@@ -1,3 +1,18 @@
-body {
-  background-color: darkRed;
+*{
+  background-color: #363636;
+}
+
+h1 {
+  font-weight: bold;
+  color: white;
+}
+ nav li{
+     flex-direction: row;
+     list-style: none;
+ }
+nav li a{
+  display: flex;
+  justify-content: flex-end;
+  font_weight: bold;
+  font-size: 2em
 }

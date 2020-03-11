@@ -45,8 +45,17 @@ attr_accessor :title
     return result
   end
 
+  def get_screening()
+      sql = 'SELECT * FROM screenings
+             WHERE film_id = $1'
+      values = [@id]
+    screening = SqlRunner.run(sql, values)
+    result = screening.map{ |screening| Screening.new(screening)}
+    return result
+  end
+
   def most_popular_screening()
-  sql = "SELECT *
+  sql = ' *
   FROM screenings
   WHERE id =
   (SELECT screening_id
@@ -59,11 +68,22 @@ attr_accessor :title
     GROUP BY screening_id
     ORDER BY COUNT(screening_id) DESC
     LIMIT 1)
-  ;"
+  ;'
   values = [@id]
   result = SqlRunner.run(sql, values)
   return Screening.new(result[0])
 end
+
+  def self.find_film_by_id(id)
+    sql = "SELECT * FROM films
+    INNER JOIN screenings
+    ON film_id = screenings.film_id
+    WHERE film_id = $1"
+    values = [id]
+    film = SqlRunner.run(sql, values)
+    result = film.map{|map|Film.new(map)}
+    return result
+  end
 
   def self.delete_all()
     sql = 'DELETE FROM films'
